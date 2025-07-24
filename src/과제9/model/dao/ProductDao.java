@@ -51,6 +51,7 @@ public class ProductDao {
     } // func end
 
 
+
     // (2) 전체 물품 목록 조회
     public ArrayList<ProductDto> productRead(){
         ArrayList<ProductDto> list = new ArrayList<>(); // 조회된 레코드(DTO) 들을 저장할 리스트 선언
