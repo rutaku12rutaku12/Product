@@ -12,10 +12,11 @@ create table products(
     pprice int not null,
     ppassword varchar(30) not null,
     pdate datetime default now() not null,
-    pstatus varchar(10) default '판매중' not null
+    pstatus varchar(10) default "판매중" not null
 );
 
 select * from products;
+DESC products; # 초기값 확인 
 
 # 샘플 데이터
 INSERT INTO products (pno ,puser, pproduct, pcontent, pprice, ppassword ,pdate ,pstatus) VALUES 
