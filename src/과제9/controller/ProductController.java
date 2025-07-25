@@ -3,6 +3,8 @@ package 과제9.controller;
 import 과제9.model.dao.ProductDao;
 import 과제9.model.dto.ProductDto;
 
+import java.util.ArrayList;
+
 public class ProductController {
     // *) 싱글톤
     private ProductController(){}
@@ -23,6 +25,67 @@ public class ProductController {
         boolean result = productDao.productCreate(productDto);
         // 4. 결과를 view에게 리턴한다.
         return result;
+    } // func end
 
+    // (2) 전체 물품 목록 조회 구현
+    public ArrayList<ProductDto> productRead(){
+        // dao에게 전달후 결과 받는다.
+        ArrayList<ProductDto> result = productDao.productRead();
+        // 결과를 view에게 리턴
+        return result;
+    } // func end
+
+    // (3) 물품 정보 수정 기능 구현
+    public boolean productUpdate( int pno , String ppassword, String pproduct , String pcontent , int pprice , String pstatus){
+        // 1.유효성검사
+        // 2.객체화
+        ProductDto productDto = new ProductDto( pno , ppassword , pproduct , pcontent , pprice , pstatus);
+        // 3. dao 에게 수정할 번호 전달후 결과 받기
+        boolean result = productDao.productUpdate(productDto);
+        // 4. 결과를 view 에게 리턴
+        return result;
     }
+
+    // (4) 등록 물품 삭제 구현
+    public boolean productDelete( int pno, String ppassword){
+        // 1.유효성검사
+        // 2.객체화
+        ProductDto productDto = new ProductDto(pno , ppassword);
+        // 3. dao 에게 삭제할 번호 전달후 결과를 받는다.
+        boolean result = productDao.productDelete(productDto);
+        // 4. 결과를 view에 리턴한다.
+        return result;
+    } // func end
+
 } //class end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

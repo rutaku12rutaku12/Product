@@ -52,7 +52,7 @@ public class ProductDao {
 
 
 
-    // (2) 전체 물품 목록 조회
+    // (2) 전체 물품 목록 조회 구현
     public ArrayList<ProductDto> productRead(){
         ArrayList<ProductDto> list = new ArrayList<>(); // 조회된 레코드(DTO) 들을 저장할 리스트 선언
         try {
@@ -60,20 +60,70 @@ public class ProductDao {
             String sql = "select * from products";
             // 2. SQL 기재
             PreparedStatement ps = conn.prepareStatement(sql);
-            // 3. SQL 매개변수 대입
-            ResultSet rs = ps.executeQuery();
+            // 3. SQL 매개변수 대입 , 매개변수 X
             // 4. SQL 실행
-
+            ResultSet rs = ps.executeQuery();
             // 5. SQL 결과에 따른 로직/리턴/확인
-
-
-
+                // 1) select 조회 결과를 레코드 하나씩 조회
+            while ( rs.next()){
+                // 2) 현재 조회중인 레코드의 속성값 호출해서 dto 만들기
+                int pno = rs.getInt("pno"); // rs.get타입(가져올 속성명or번호)
+                String pproduct = rs.getString("pproduct");
+                int pprice = rs.getInt("pprice");
+                String puser = rs.getString("puser");
+                String pdate = rs.getString("pdate");
+                String pstatus = rs.getString("pstatus");
+                ProductDto productDto = new ProductDto( pno , pproduct , pprice , puser , pdate , pstatus );
+                // 3) 생성된 dto를 리스트에 담아주기
+                list.add( productDto );
+            } // while end
         }catch (Exception e){System.out.println(e);}
-
+        return list;
     } // func end
 
+    // (3) 물품 정보 수정 구현
+    public boolean productUpdate(ProductDto productDto){
+        // 1. SQL 작성
+        try{String sql = "update products set pproduct = ?, pcontent = ?, pprice = ? ,pstatus = ?  where pno = ? and ppassword = ?";
+            // 2. SQL 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // 3. SQL 매개변수 대입 , ? 6개
+            ps.setString(1,productDto.getPproduct());
+            ps.setString(2,productDto.getPcontent());
+            ps.setInt(3,productDto.getPprice());
+            ps.setString(4,productDto.getPstatus());
+            ps.setInt(5,productDto.getPno());
+            ps.setString(6,productDto.getPpassword());
+            // 4. SQL 실행
+            int count = ps.executeUpdate();
+            // 5. SQL 결과에 따른 로직/리턴/확인
+            if( count == 1 )return true; // 수정 sql 결과가 1개이면 수정성공
+            return false; // 수정 sql 결과가 1이 아니면 수정 실패
+        }catch (Exception e){System.out.println(e);}
+        return false; // 예외발생시 수정실패
+    } // func end
 
-}// class end
+    // (4) 등록 물품 삭제 구현
+    public boolean productDelete( ProductDto productDto ){
+             // 1. SQL 작성
+        try { String sql = "delete from products where pno=? and ppassword=?";
+            // 2. SQL 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // 3. SQL 매개변수 대입
+            ps.setInt(1,productDto.getPno());
+            ps.setString(2, productDto.getPpassword());
+            // 4. SQL 실행
+            int count = ps.executeUpdate();
+            // 5. SQL 결과에 따른 로직/리턴/확인
+            if( count == 1 ) return true; // 삭제 sql 결과가 1이면 삭제 성공
+            return false; // 삭제 sql 결과가 1이 아니면 삭제 실패
+        }catch (Exception e){System.out.println(e);}
+        return false; // 예외발생시 삭제실패
+    }
+
+
+
+} // class end
 
 
 

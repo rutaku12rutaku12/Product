@@ -42,6 +42,29 @@ public class ProductDto {
         this.pstatus = "판매중" ;
     }
 
+    public ProductDto(int pno, String pproduct, int pprice, String puser, String pdate, String pstatus) {
+        this.pno = pno;
+        this.puser = puser;
+        this.pproduct = pproduct;
+        this.pprice = pprice;
+        this.pdate = pdate;
+        this.pstatus = pstatus;
+    }
+
+    public ProductDto(int pno, String ppassword, String pproduct, String pcontent, int pprice, String pstatus) {
+        this.pno = pno;
+        this.pproduct = pproduct;
+        this.pcontent = pcontent;
+        this.pprice = pprice;
+        this.ppassword = ppassword;
+        this.pstatus = pstatus;
+    }
+
+    public ProductDto(int pno, String ppassword) {
+        this.pno = pno;
+        this.ppassword = ppassword;
+    }
+
 
     // 3. 메소드
     // 1.) setter
@@ -112,6 +135,19 @@ public class ProductDto {
     }
 
     // 3.) toString
-    
 
+
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "pno=" + pno +
+                ", puser='" + puser + '\'' +
+                ", pproduct='" + pproduct + '\'' +
+                ", pcontent='" + pcontent + '\'' +
+                ", pprice=" + pprice +
+                ", ppassword='" + ppassword + '\'' +
+                ", pdate='" + pdate + '\'' +
+                ", pstatus='" + pstatus + '\'' +
+                '}';
+    }
 }
