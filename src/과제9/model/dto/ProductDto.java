@@ -65,6 +65,10 @@ public class ProductDto {
         this.ppassword = ppassword;
     }
 
+    public ProductDto(String puser) {
+        this.puser = puser;
+    }
+
 
     // 3. 메소드
     // 1.) setter

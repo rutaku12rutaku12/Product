@@ -57,6 +57,14 @@ public class ProductController {
         return result;
     } // func end
 
+    // (7) 랭킹 조회기능 구현
+    public ArrayList<ProductDto> rankPrint(){
+        // dao 에게 전달 받는다
+        ArrayList<ProductDto> result = productDao.rankPrint();
+        // 결과를 view 에게 리턴
+        return result;
+    } // func end
+
 } //class end
 
 

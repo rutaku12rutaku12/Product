@@ -52,7 +52,7 @@ public class ProductDao {
 
 
 
-    // (2) 전체 물품 목록 조회 구현
+    // (2) 전체 물품 목록 조회기능 구현
     public ArrayList<ProductDto> productRead(){
         ArrayList<ProductDto> list = new ArrayList<>(); // 조회된 레코드(DTO) 들을 저장할 리스트 선언
         try {
@@ -81,7 +81,7 @@ public class ProductDao {
         return list;
     } // func end
 
-    // (3) 물품 정보 수정 구현
+    // (3) 물품 정보 수정기능 구현
     public boolean productUpdate(ProductDto productDto){
         // 1. SQL 작성
         try{String sql = "update products set pproduct = ?, pcontent = ?, pprice = ? ,pstatus = ?  where pno = ? and ppassword = ?";
@@ -103,7 +103,7 @@ public class ProductDao {
         return false; // 예외발생시 수정실패
     } // func end
 
-    // (4) 등록 물품 삭제 구현
+    // (4) 등록 물품 삭제기능 구현
     public boolean productDelete( ProductDto productDto ){
              // 1. SQL 작성
         try { String sql = "delete from products where pno=? and ppassword=?";
@@ -121,7 +121,28 @@ public class ProductDao {
         return false; // 예외발생시 삭제실패
     }
 
-
+    // (7) 랭킹 조회기능 구현
+    public ArrayList<ProductDto> rankPrint(){
+        ArrayList<ProductDto> list = new ArrayList<>(); // 조회된 레코드(DTO) 들을 저장할 리스트 선언
+        try{ // 1. SQL 작성
+            String sql = "select puser,count(*) from products group by puser order by count(*) desc limit 10; ";
+            // 2. SQl 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // 3. SQL 매개변수 대입 , 매개변수 X
+            // 4. SQL 실행
+            ResultSet rs = ps.executeQuery();
+            // 5. SQL 결과에 따른 로직/리턴/확인
+                // 1) select 조회 결과를 레코드 하나씩 조회
+            while (rs.next()){
+                // 2) 현재 조회중인 레코드의 속성값 호출
+                String puser = rs.getString("puser");
+                ProductDto productDto = new ProductDto( puser );
+                // 3) 생성된 dto를 리스트에 담아주기
+                list.add( productDto );
+            } // while end
+        } catch (Exception e){System.out.println(e);}
+        return list;
+    } // func end
 
 } // class end
 

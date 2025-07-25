@@ -103,4 +103,20 @@ public class ProductView {
         if( result ){ System.out.println("[안내]삭제 성공");}
         else {System.out.println("[경고] 번호가 없거나 비밀번호가 다릅니다.");}
     }
+
+    // (7) 랭킹 조회기능 구현
+    public void rankPrint(){
+        System.out.println("==============  등록 랭킹 조회  ==============");
+        System.out.println("\uD83E\uDD471위: 회");
+        System.out.println("\uD83E\uDD482위: 회");
+        System.out.println("\uD83E\uDD493위: 회");
+        System.out.println("4위: 회");
+        System.out.println("5위: 회");
+        System.out.println("6위: 회");
+        System.out.println("7위: 회");
+        System.out.println("8위: 회");
+        System.out.println("9위: 회");
+        System.out.println("10위: 회");
+    }
+
 } // class end
